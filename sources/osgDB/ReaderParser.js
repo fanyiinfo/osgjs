@@ -19,6 +19,7 @@ define( [
     'osg/Projection'
 ], function ( Q, require, Input, Notify, MACROUTILS, Texture, Uniform, BlendFunc, Geometry, BufferArray, PrimitiveSet, DrawArrays, DrawElements, StateSet, Node, Matrix, MatrixTransform, Projection ) {
 
+    'use strict';
 
     var ReaderParser = {};
 
@@ -131,7 +132,7 @@ define( [
                 osgjs.setWrapS( wrapS );
             }
             var file = getFieldBackwardCompatible( 'File', json );
-            Q.when( ReaderParser.readImage( file ) ).then(
+            Q( ReaderParser.readImage( file ) ).then(
                 function ( img ) {
                     osgjs.setImage( img );
                 } );

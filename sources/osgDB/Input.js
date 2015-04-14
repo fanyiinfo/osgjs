@@ -411,7 +411,7 @@ define( [
 
             var url = vb.File;
             var defer = Q.defer();
-            Q.when( this.readBinaryArrayURL( url ) ).then( function ( array ) {
+            Q( this.readBinaryArrayURL( url ) ).then( function ( array ) {
 
                 var typedArray;
                 // manage endianness
@@ -584,11 +584,10 @@ define( [
                 obj = new DrawElements( mode );
 
                 this.setJSON( jsonArray );
-                Q.when( this.readBufferArray() ).then(
-                    function ( array ) {
-                        obj.setIndices( array );
-                        defer.resolve( obj );
-                    } );
+                Q( this.readBufferArray() ).then( function ( array ) {
+                    obj.setIndices( array );
+                    defer.resolve( obj );
+                } );
                 this.setJSON( prevJson );
             }
 

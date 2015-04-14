@@ -279,7 +279,7 @@ define( [
 
             // Load from function
             if ( dbrequest._function !== undefined ) {
-                Q.when( this.loadNodeFromFunction( dbrequest._function, dbrequest._group ) ).then( function ( child ) {
+                Q( this.loadNodeFromFunction( dbrequest._function, dbrequest._group ) ).then( function ( child ) {
                     that._downloadingRequestsNumber--;
                     dbrequest._loadedModel = child;
                     that._pendingNodes.push( dbrequest );
@@ -287,7 +287,7 @@ define( [
                 } );
 
             } else if ( dbrequest._url !== '' ) { // Load from URL
-                Q.when( this.loadNodeFromURL( dbrequest._url ) ).then( function ( child ) {
+                Q( this.loadNodeFromURL( dbrequest._url ) ).then( function ( child ) {
                     that._downloadingRequestsNumber--;
                     dbrequest._loadedModel = child;
                     that._pendingNodes.push( dbrequest );
@@ -299,7 +299,7 @@ define( [
         loadNodeFromFunction: function ( func, plod ) {
             // Need to call with pagedLOD as parent, to be able to have multiresolution structures.
             var defer = Q.defer();
-            Q.when( ( func )( plod ) ).then( function ( child ) {
+            Q( ( func )( plod ) ).then( function ( child ) {
                 defer.resolve( child );
             } );
             return defer.promise;
@@ -314,7 +314,7 @@ define( [
             // the parsing. This way several/many request could be done at the same time.
             // Also we should be able to cancel requests, so there is a need to have access
             // to the HTTPRequest Object
-            Q.when( ReaderParser.readNodeURL( url ) ).then( function ( child ) {
+            Q( ReaderParser.readNodeURL( url ) ).then( function ( child ) {
                 defer.resolve( child );
             } );
             return defer.promise;

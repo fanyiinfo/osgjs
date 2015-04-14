@@ -614,11 +614,9 @@ define( [
     Texture.createFromURL = function ( imageSource, format ) {
         Notify.log( 'Texture.createFromURL is deprecated, use instead osgDB.readImageURL' );
         var texture = new Texture();
-        Q.when( ReaderParser.readImage( imageSource ) ).then(
-            function ( img ) {
-                texture.setImage( img, format );
-            }
-        );
+        Q( ReaderParser.readImage( imageSource ) ).then( function ( img ) {
+            texture.setImage( img, format );
+        } );
         return texture;
     };
 
